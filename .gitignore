@@ -416,3 +416,5 @@ FodyWeavers.xsd
 *.msix
 *.msm
 *.msp
+/Discere/Discere/Resources/Raw/model.gguf
+/Discere/Discere/Resources/Raw/tiny-model.gguf

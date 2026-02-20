@@ -7,13 +7,34 @@
         <VerticalStackLayout
             Padding="30,0"
             Spacing="25">
-            <Image
-                Source="dotnet_bot.png"
-                HeightRequest="185"
-                Aspect="AspectFit"
-                SemanticProperties.Description="dot net bot in a submarine number ten" />
 
-            <Label
+            <HorizontalStackLayout>
+                <Label Padding="0,0,5,0">Card</Label>
+                <Label x:Name="LabelCardNumber">x</Label>
+                <Label>/</Label>
+                <Label x:Name="LabelCardCount">y</Label>
+                <Label Padding="5,0">·</Label>
+                <Label>Difficulty:</Label>
+                <Label x:Name="LabelDifficulty">Medium</Label>
+            </HorizontalStackLayout>
+
+            <Label x:Name="LabelQuestion">Explain what a primary key is in a relational database and why it matters.</Label>
+
+            <Editor x:Name="EditorUserAnswer" Placeholder="Answer here" AutoSize="TextChanges" />
+
+            <FlexLayout Direction="Row">
+                <Button x:Name="BtnSkip" 
+                        Clicked="OnSkipClicked"
+                        FlexLayout.Grow="1" 
+                        HorizontalOptions="Start" 
+                        Text="Skip" />
+                <Button x:Name="BtnSubmit" 
+                        Clicked="OnSubmitClicked"
+                        HorizontalOptions="End" 
+                        Text="Submit" />
+            </FlexLayout>
+
+            <!--<Label
                 Text="Hello, World!"
                 Style="{StaticResource Headline}"
                 SemanticProperties.HeadingLevel="Level1" />
@@ -29,7 +50,7 @@
                 Text="Click me" 
                 SemanticProperties.Hint="Counts the number of times you click"
                 Clicked="OnCounterClicked"
-                HorizontalOptions="Fill" />
+                HorizontalOptions="Fill" />-->
         </VerticalStackLayout>
     </ScrollView>
 

@@ -45,6 +45,7 @@
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">21.0</SupportedOSPlatformVersion>
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</SupportedOSPlatformVersion>
 		<TargetPlatformMinVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</TargetPlatformMinVersion>
+		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -66,8 +67,44 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <None Remove="Platforms\Android\libllama.so" />
+	  <None Remove="Platforms\Android\libs\arm64-v8a\libc++_shared.so" />
+	  <None Remove="Platforms\Android\libs\arm64-v8a\libggml-base.so" />
+	  <None Remove="Platforms\Android\libs\arm64-v8a\libggml-cpu.so" />
+	  <None Remove="Platforms\Android\libs\arm64-v8a\libggml.so" />
+	  <None Remove="Platforms\Android\libs\arm64-v8a\libllama.so" />
+	  <None Remove="Platforms\Windows\llama.dll" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <AndroidNativeLibrary Include="Platforms\Android\libs\arm64-v8a\libc++_shared.so" />
+	  <AndroidNativeLibrary Include="Platforms\Android\libs\arm64-v8a\libggml-base.so" />
+	  <AndroidNativeLibrary Include="Platforms\Android\libs\arm64-v8a\libggml-cpu.so" />
+	  <AndroidNativeLibrary Include="Platforms\Android\libs\arm64-v8a\libggml.so" />
+	  <AndroidNativeLibrary Include="Platforms\Android\libs\arm64-v8a\libllama.so" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Content Include="Platforms\Windows\llama.dll">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </Content>
+	</ItemGroup>
+
+	<ItemGroup>
 		<PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="10.0.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiAsset Update="Resources\Raw\model.gguf">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </MauiAsset>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiXaml Update="AnswerPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	</ItemGroup>
 
 </Project>
