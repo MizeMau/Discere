@@ -3,7 +3,7 @@ using Microsoft.Maui.Storage;
 
 public static class AndroidFilePermissions
 {
-    public static async Task<string?> CopyModelToAppDataAsync(string modelFileName = "tiny-model.gguf")
+    public static async Task<string?> CopyModelToAppDataAsync(string modelFileName = "model.gguf")
     {
         var destPath = Path.Combine(FileSystem.AppDataDirectory, modelFileName);
 

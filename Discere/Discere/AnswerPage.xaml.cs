@@ -16,7 +16,6 @@ public partial class AnswerPage : ContentPage, IQueryAttributable
         if (ai == null)
         {
             ai = new AIService();
-            _ = ai.Init();
         }
     }
     public async void ApplyQueryAttributes(IDictionary<string, object> query)
@@ -26,15 +25,21 @@ public partial class AnswerPage : ContentPage, IQueryAttributable
         LabelAnswer.Text = card.Answer;
         LabelUserAnswer.Text = card.UserAnswer;
 
-        LabelAIComment.Text = "Bewerte Antwort...";
+        _ = Task.Run(RunLocalInference);
+    }
 
-        // run AI evaluation in background
-        var result = ai.EvaluateAsync(
+    async void RunLocalInference()
+    {
+        LabelAIComment.Text = "Bewerte Antwort...";
+        string result = await ai.EvaluateAsync(
             card.Question,
             card.Answer,
             card.UserAnswer
         );
-
-        LabelAIComment.Text = result;
+        MainThread.BeginInvokeOnMainThread(() =>
+        {
+            LabelAIComment.Text = result;
+            System.Diagnostics.Debug.WriteLine(result);
+        });
     }
 }

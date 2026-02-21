@@ -96,12 +96,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <MauiAsset Update="Resources\Raw\model.gguf">
-	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-	  </MauiAsset>
-	</ItemGroup>
-
-	<ItemGroup>
 	  <MauiXaml Update="AnswerPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
