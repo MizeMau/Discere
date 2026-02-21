@@ -19,7 +19,7 @@ namespace Discere.Service
 <|begin_of_text|>
 <|start_header_id|>system<|end_header_id|>
 Du bist ein strenger, objektiver Lehrer.
-Du bewertest ausschließlich anhand der Musterlösung.
+Du bewertest anhand der Musterlösung.
 Keine zusätzlichen Erklärungen.
 Kein Fließtext außerhalb des geforderten Formats.
 <|eot_id|>
