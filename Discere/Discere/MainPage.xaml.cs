@@ -11,9 +11,6 @@ namespace Discere
         public MainPage()
         {
             InitializeComponent();
-            var db = new Card.Service();
-            count = db.GetQuery().Count();
-            LabelCardCount.Text = count.ToString();
 
             this.Appearing += OnAppearing;
         }
@@ -30,6 +27,12 @@ namespace Discere
             }
             var db = new Card.Service();
             Card.Model card = null;
+
+            if (count == 0)
+            {
+                count = db.GetQuery().Count();
+                LabelCardCount.Text = count.ToString();
+            }
 
             int totalWeight = db.GetQuery().Sum(s => s.Difficulty);
             var random = new Random();
