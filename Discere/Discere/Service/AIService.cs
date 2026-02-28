@@ -6,20 +6,16 @@ using System.Text;
 
 namespace Discere.Service
 {
-    public class AIService
+    public static class AIService
     {
-        public async Task Init()
-        {
-
-        }
-
-        public async Task<string> EvaluateAsync(string question, string correct, string user)
+        public static async Task<string> EvaluateAsync(string question, string correct, string user)
         {
             var prompt = $@"
 <|begin_of_text|>
 <|start_header_id|>system<|end_header_id|>
 Du bist ein strenger, objektiver Lehrer.
-Du bewertest anhand der Musterlösung.
+Antworte nur mit der Wahrheit.
+Du bewertest anhand der Musterlösung und deinem Wissen.
 Keine zusätzlichen Erklärungen.
 Kein Fließtext außerhalb des geforderten Formats.
 <|eot_id|>
@@ -48,17 +44,16 @@ Keine weiteren Zeilen.
             return await Ask(prompt);
         }
 
-        public async Task<string> Ask(string prompt)
+        public static async Task<string> Ask(string prompt)
         {
-            string path = "";
 #if ANDROID
-    path = await AndroidFilePermissions.CopyModelToAppDataAsync();
-    if (path == null)
-    {
-        Console.WriteLine("Cannot access or copy model file!");
-        return "";
-    }
-#endif
+            string path = "";
+            path = await AndroidFilePermissions.CopyModelToAppDataAsync();
+            if (path == null)
+            {
+                Console.WriteLine("Cannot access or copy model file!");
+                return "";
+            }
 
             var init = NativeMethods.llama_android_init(path);
             if (init != 0)
@@ -75,12 +70,9 @@ Keine weiteren Zeilen.
 
             NativeMethods.llama_android_free();
 
-            //MainThread.BeginInvokeOnMainThread(() =>
-            //{
-            //    resultLabel.Text = sb.ToString();
-            //    System.Diagnostics.Debug.WriteLine(resultLabel.Text);
-            //});
             return sb.ToString();
+#endif
+            return "";
         }
     }
 }

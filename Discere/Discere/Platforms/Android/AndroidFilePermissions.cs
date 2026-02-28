@@ -38,5 +38,40 @@ public static class AndroidFilePermissions
 
         return destPath;
     }
+
+    public static async Task<FileResult?> PickDatabaseFileAsync()
+    {
+        var result = await FilePicker.Default.PickAsync(new PickOptions
+        {
+            PickerTitle = "Select SQLite Database",
+            FileTypes = new FilePickerFileType(new Dictionary<DevicePlatform, IEnumerable<string>>
+        {
+            { DevicePlatform.WinUI, new[] { ".db", ".sqlite", ".sqlite3" } },
+            { DevicePlatform.Android, new[] { "application/octet-stream" } },
+            { DevicePlatform.iOS, new[] { "public.database" } }
+        })
+        });
+
+        return result;
+    }
+    public static async Task<string?> ImportDatabaseAsync()
+    {
+        var result = await PickDatabaseFileAsync();
+        if (result == null)
+            return null;
+
+        var destinationPath = Path.Combine(
+            FileSystem.AppDataDirectory,
+            "database.db");
+
+        using var sourceStream = await result.OpenReadAsync();
+        using var destinationStream = File.Create(destinationPath);
+
+        await sourceStream.CopyToAsync(destinationStream);
+
+        Preferences.Set("DatabasePath", destinationPath);
+
+        return destinationPath;
+    }
 }
 #endif

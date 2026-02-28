@@ -3,36 +3,87 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Discere.AnswerPage"
              Title="AnswerPage">
-    <VerticalStackLayout Margin="10,0"
-                         Spacing="20">
-        <Border Padding="10">
-            <VerticalStackLayout>
-                <Label FontAttributes="Bold">Question</Label>
-                <Border Margin="0,0,0,6" />
-                <Label x:Name="LabelQuestion">Text</Label>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <ScrollView>
+            <VerticalStackLayout Margin="10,0"
+                             Spacing="20">
+                <Border Padding="10">
+                    <VerticalStackLayout>
+                        <Label FontAttributes="Bold">Question</Label>
+                        <Border Margin="0,0,0,6" />
+                        <Label x:Name="LabelQuestion">Text</Label>
+                    </VerticalStackLayout>
+                </Border>
+                <Border Padding="10">
+                    <VerticalStackLayout>
+                        <Label FontAttributes="Bold">Correct Answer</Label>
+                        <Border Margin="0,0,0,6" />
+                        <Label x:Name="LabelAnswer">Text</Label>
+                    </VerticalStackLayout>
+                </Border>
+                <Border Padding="10">
+                    <VerticalStackLayout>
+                        <Label FontAttributes="Bold">Your Answer</Label>
+                        <Border Margin="0,0,0,6" />
+                        <Label x:Name="LabelUserAnswer">Text</Label>
+                    </VerticalStackLayout>
+                </Border>
+
+                <Button x:Name="ButtonGenerateAI"
+                    Text="Generate AI Comment"
+                    Clicked="OnRunLocalAIEvaluationClick" />
+                <ActivityIndicator x:Name="AILoader"
+                               IsRunning="False"
+                               IsVisible="False"
+                               HeightRequest="40"/>
+                <Border x:Name="AICommentSection"
+                    IsVisible="False">
+
+                    <VerticalStackLayout Padding="10">
+                        <Label FontAttributes="Bold">AI Comment</Label>
+                        <Border Margin="0,0,0,6" />
+                        <Label x:Name="LabelAIComment">Text</Label>
+                    </VerticalStackLayout>
+
+                </Border>
+
+
             </VerticalStackLayout>
-        </Border>
-        <Border Padding="10">
-            <VerticalStackLayout>
-                <Label FontAttributes="Bold">Correct Answer</Label>
-                <Border Margin="0,0,0,6" />
-                <Label x:Name="LabelAnswer">Text</Label>
-            </VerticalStackLayout>
-        </Border>
-        <Border Padding="10">
-            <VerticalStackLayout>
-                <Label FontAttributes="Bold">Your Answer</Label>
-                <Border Margin="0,0,0,6" />
-                <Label x:Name="LabelUserAnswer">Text</Label>
-            </VerticalStackLayout>
-        </Border>
-        <Border Padding="10">
-            <VerticalStackLayout>
-                <Label FontAttributes="Bold">AI Comment</Label>
-                <Border Margin="0,0,0,6" />
-                <Label x:Name="LabelAIComment">Text</Label>
-            </VerticalStackLayout>
-        </Border>
-        <Button Text="Next"/>
-    </VerticalStackLayout>
+        </ScrollView>
+        <Grid Grid.Row="1"
+              Margin="0,0,0,10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="10" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <Button x:Name="BtnSkip" 
+                    Grid.Column="0"
+                    BackgroundColor="#dc3545"
+                    Text="False"
+                    Clicked="OnFalseClick" />
+            <Button x:Name="BtnSubmit" 
+                    Grid.Column="2"
+                    BackgroundColor="#28a745"
+                    Text="Correct"
+                    Clicked="OnCorrectClick" />
+        </Grid>
+    </Grid>
+
+    <ContentPage.Resources>
+        <Style TargetType="Border">
+            <Setter Property="Stroke" Value="#6E6E6E"/>
+            <Setter Property="StrokeShape">
+                <Setter.Value>
+                    <RoundRectangle CornerRadius="12"/>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </ContentPage.Resources>
 </ContentPage>

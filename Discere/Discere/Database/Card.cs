@@ -8,12 +8,23 @@ namespace Discere.Database
 {
     public class Card
     {
-        [Key]
-        public long CardID { get; set; }
-        public long Number { get; set; }
-        public string Question { get; set; }
-        public string Answer { get; set; }
-        [NotMapped]
-        public string UserAnswer { get; set; }
+        [Table("Card")]
+        public class Model
+        {
+            [Key]
+            public long CardID { get; set; }
+            public long Number { get; set; }
+            public string Question { get; set; }
+            public string Answer { get; set; }
+            public int Difficulty { get; set; }
+        }
+        public class DTO : Model
+        {
+            public string UserAnswer { get; set; }
+        }
+        public class Service : Service<Model>
+        {
+
+        }
     }
 }
