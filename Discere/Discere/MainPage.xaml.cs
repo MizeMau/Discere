@@ -51,6 +51,12 @@ namespace Discere
             }
 
             if (card == null) return;
+
+            card.Question = card.Question.Replace("\n", "\n\n");
+            card.Question = card.Question.Replace("\t", "");
+            card.Answer = card.Answer.Replace("\n", "\n\n");
+            card.Answer = card.Answer.Replace("\t", "");
+
             this.card = new Card.DTO()
             {
                 CardID = card.CardID,
